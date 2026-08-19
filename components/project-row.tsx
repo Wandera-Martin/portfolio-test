@@ -10,10 +10,16 @@ export function ProjectRow({ project }: { project: Project }) {
           <span>{project.index}</span>
           <span>{project.transformationProblem}</span>
         </div>
-        <h3>{project.title}</h3>
-        <p>{project.summary}</p>
+        <h3>{project.displayTitle}</h3>
+        <div className="project-row-copy">
+          <p className="project-row-description">{project.shortDescription}</p>
+          <p className="project-row-technical">{project.technicalTitle}</p>
+          <p className="project-row-methods">{[...project.metadata, ...project.methods].join(" · ")}</p>
+        </div>
         <div className="project-row-action">
-          <span className="placeholder-label">Illustrative placeholder</span>
+          <span className="placeholder-label">
+            {project.isPlaceholder ? "Illustrative placeholder" : "Evidence-bearing case study"}
+          </span>
           <span aria-hidden="true">↗</span>
         </div>
         <div className="project-row-preview">

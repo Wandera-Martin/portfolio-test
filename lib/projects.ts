@@ -1,11 +1,14 @@
 export type Project = {
   slug: string;
   index: string;
-  title: string;
+  displayTitle: string;
+  technicalTitle: string;
+  shortDescription: string;
+  methods: string[];
+  metadata: string[];
   question: string;
   sector: string;
   transformationProblem: string;
-  summary: string;
   context: string;
   tensions: string[];
   signals: string[];
@@ -27,12 +30,15 @@ export const projects: Project[] = [
 {
   slug: "football-player-value-prediction",
   index: "01",
-  title: "Football Statistics and Player Value Prediction with Linear Regression",
+  displayTitle: "What drives a footballer's market value?",
+  technicalTitle: "Football Statistics and Player Value Prediction with Linear Regression",
+  shortDescription:
+    "An end-to-end data science project exploring the relationship between player statistics and market values using a Linear Regression model in Python.",
+  methods: ["Python", "Linear Regression"],
+  metadata: ["23,506 players"],
   question: "Can football statistics predict what a player is worth?",
   sector: "Sports Analytics & Data Science",
   transformationProblem: "Quantifying market value amidst off-pitch variables",
-  summary:
-    "An end-to-end data science project exploring the relationship between player statistics and market values using a Linear Regression model in Python.",
   context:
     "The project analyzed data from 23,506 professional football players across three datasets covering profiles, career performance, and historical market values to build a predictive model.",
   tensions: [
@@ -66,12 +72,15 @@ export const projects: Project[] = [
   {
     slug: "data-to-decision",
     index: "02",
-    title: "Turning scattered program data into a decision system",
+    displayTitle: "Turning scattered program data into a decision system",
+    technicalTitle: "Illustrative decision-centered data governance scenario",
+    shortDescription:
+      "A fictional scenario about moving from disconnected reporting practices toward a shared evidence and governance model.",
+    methods: ["Decision mapping", "Data governance", "Evidence workflow"],
+    metadata: ["Illustrative placeholder"],
     question: "What changes when reporting data is designed around decisions rather than collection?",
     sector: "Development organizations",
     transformationProblem: "Data without decision utility",
-    summary:
-      "A fictional scenario about moving from disconnected reporting practices toward a shared evidence and governance model.",
     context:
       "The prototype considers a distributed program environment where teams collect significant information but struggle to connect it to timely institutional decisions.",
     tensions: [
@@ -89,12 +98,15 @@ export const projects: Project[] = [
   {
     slug: "ecosystem-adoption",
     index: "03",
-    title: "Designing adoption around an emerging platform",
+    displayTitle: "Designing adoption around an emerging platform",
+    technicalTitle: "Illustrative platform adoption and ecosystem operating-model scenario",
+    shortDescription:
+      "A fictional scenario exploring the relationship between product choices, partner incentives, operating models, communication, and adoption.",
+    methods: ["Partner research", "Operating-model design", "Adoption strategy"],
+    metadata: ["Illustrative placeholder"],
     question: "How might a useful technology become part of how an ecosystem actually works?",
     sector: "Technology ecosystems",
     transformationProblem: "Product rollout without adoption",
-    summary:
-      "A fictional scenario exploring the relationship between product choices, partner incentives, operating models, communication, and adoption.",
     context:
       "The prototype imagines a platform entering a distributed ecosystem where technical readiness does not automatically produce partner or user adoption.",
     tensions: [

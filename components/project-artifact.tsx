@@ -35,7 +35,7 @@ export function ProjectArtifact({ project, compact = false }: ProjectArtifactPro
       className="artifact"
       data-variant={variant}
       data-compact={compact || undefined}
-      aria-label={`Abstract development artifact for ${project.title}. This is not evidence of completed work.`}
+      aria-label={`Abstract development artifact for ${project.displayTitle}. This is not evidence of completed work.`}
     >
       <div className="artifact-grid" aria-hidden="true">
         <span className="artifact-axis artifact-axis-x" />

@@ -15,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
-  return project ? { title: project.title, description: project.summary } : {};
+  return project ? { title: project.displayTitle, description: project.shortDescription } : {};
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
@@ -31,17 +31,20 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             <Link className="text-link focus-ring" href="/work">← Work archive</Link>
             <span>{project.index} / 03</span>
           </div>
-          <div className="placeholder-banner" data-intro-item>
-            <strong>Illustrative placeholder</strong>
-            <span>{project.disclaimer}</span>
-          </div>
-          <SplitHeading as="h1" className="case-title" intro>{project.title}</SplitHeading>
+          {project.isPlaceholder && (
+            <div className="placeholder-banner" data-intro-item>
+              <strong>Illustrative placeholder</strong>
+              <span>{project.disclaimer}</span>
+            </div>
+          )}
+          <SplitHeading as="h1" className="case-title" intro>{project.displayTitle}</SplitHeading>
+          <p className="case-technical-title" data-intro-item>{project.technicalTitle}</p>
           <p className="case-question" data-intro-item>{project.question}</p>
           <dl className="case-meta" data-intro-item>
             <div><dt>Context</dt><dd>{project.sector}</dd></div>
             <div><dt>Problem</dt><dd>{project.transformationProblem}</dd></div>
-            <div><dt>Status</dt><dd>Prototype scenario</dd></div>
-            <div><dt>Contribution</dt><dd>Verified role to be added</dd></div>
+            <div><dt>Methods</dt><dd>{project.methods.join(" · ")}</dd></div>
+            <div><dt>Status</dt><dd>{project.isPlaceholder ? "Prototype scenario" : "Published project"}</dd></div>
           </dl>
         </header>
 
