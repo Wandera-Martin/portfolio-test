@@ -1620,6 +1620,7 @@ button:focus-visible {
 
 @media (max-width: 520px) {
   .wordmark { font-size: 0.76rem; }
+  .page-title { font-size: clamp(3.75rem, 16vw, 4.25rem); }
   .hero-top { gap: 1rem; }
   .hero-grid { padding-top: 6vh; }
   .hero-title { font-size: clamp(3.45rem, 16vw, 5rem); }
