@@ -358,9 +358,14 @@ button:focus-visible {
   border-top: 1px solid var(--stone);
 }
 
+.pov.section-space {
+  padding-top: clamp(5rem, 8vw, 7.5rem);
+  padding-bottom: clamp(6rem, 9vw, 8.5rem);
+}
+
 .pov-grid {
   display: grid;
-  margin-top: clamp(3.5rem, 7vw, 7rem);
+  margin-top: clamp(3.25rem, 5.5vw, 5.5rem);
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--gutter);
 }
@@ -395,7 +400,13 @@ button:focus-visible {
   max-width: 32rem;
   justify-self: end;
   color: var(--graphite);
-  font-size: 0.82rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.work-section.section-space {
+  padding-top: clamp(5.5rem, 8vw, 8rem);
+  padding-bottom: clamp(5rem, 7vw, 7.5rem);
 }
 
 .section-title {
@@ -470,7 +481,8 @@ button:focus-visible {
   grid-column: 9 / -1;
   max-width: 28rem;
   color: var(--graphite);
-  font-size: 0.92rem;
+  font-size: clamp(0.98rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
 }
 
 .project-row-action {
@@ -521,6 +533,10 @@ button:focus-visible {
   background: var(--ink);
 }
 
+.framework.section-space {
+  padding-top: clamp(5.75rem, 8vw, 8rem);
+}
+
 .framework .section-marker,
 .section-marker.light {
   color: #aaa69d;
@@ -535,11 +551,12 @@ button:focus-visible {
   margin-top: 2rem;
   margin-left: auto;
   color: #bbb7ae;
-  font-size: 1rem;
+  font-size: 1.06rem;
+  line-height: 1.6;
 }
 
 .framework-list {
-  margin-top: clamp(4rem, 8vw, 8rem);
+  margin-top: clamp(3.5rem, 6vw, 6rem);
 }
 
 .framework-row {
@@ -580,12 +597,15 @@ button:focus-visible {
 .framework-row > p:not(.framework-items) {
   grid-column: 7 / 10;
   color: #d2cec5;
+  font-size: 1.04rem;
+  line-height: 1.58;
 }
 
 .framework-items {
   grid-column: 10 / -1;
   color: #99958e;
-  font-size: 0.8rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
 }
 
 .profile-preview-grid {
@@ -1159,6 +1179,17 @@ button:focus-visible {
   .framework-row h3 { grid-column: 2 / -1; }
   .framework-row > p:not(.framework-items) { grid-column: 2 / -1; margin-top: 2rem; }
   .framework-items { grid-column: 2 / -1; margin-top: 1.5rem; }
+
+  .section-note,
+  .project-row-link > p,
+  .framework-intro,
+  .framework-row > p:not(.framework-items) {
+    font-size: 1rem;
+  }
+
+  .framework-items {
+    font-size: 0.88rem;
+  }
 
   .portrait-placeholder { grid-column: 1 / -1; min-height: 32rem; }
   .profile-preview-copy { grid-column: 2 / -1; margin-top: 3rem; }
