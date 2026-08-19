@@ -11,18 +11,21 @@ const framework = [
     title: "Signals",
     summary: "Seeing what is happening, what matters, and what the available evidence does—or does not—support.",
     items: "Data · Research · Evidence · Context · Observation",
+    relationship: "Signals inform the systems we design.",
   },
   {
     index: "02",
     title: "Systems",
     summary: "Understanding how technologies, institutions, incentives, decisions, and operating structures interact.",
     items: "Technology · Strategy · Products · Institutions · Operating models",
+    relationship: "Systems shape what becomes possible.",
   },
   {
     index: "03",
     title: "Stories",
     summary: "Helping people understand change, locate themselves within it, and act with greater alignment.",
     items: "Communication · Shared meaning · Alignment · Adoption",
+    relationship: "Stories create shared understanding and adoption.",
   },
 ];
 
@@ -97,7 +100,7 @@ export default function Home() {
             <div className="section-marker" data-reveal><span>02</span><span>Working framework</span></div>
             <SplitHeading as="h2" className="section-title" id="framework-title">Signals, Systems, Stories</SplitHeading>
             <p className="framework-intro" data-reveal>
-              Three connected lenses for understanding transformation—not three separate services.
+              Three connected lenses for understanding transformation—not three separate services or a one-way sequence.
             </p>
           </div>
           <div className="framework-list section-shell">
@@ -108,8 +111,17 @@ export default function Home() {
                 <h3>{item.title}</h3>
                 <p>{item.summary}</p>
                 <p className="framework-items">{item.items}</p>
+                <div className="framework-relationship">
+                  <span className="framework-relationship-line" data-signal-line aria-hidden="true" />
+                  <p>{item.relationship}</p>
+                </div>
               </article>
             ))}
+            <div className="framework-feedback" data-reveal>
+              <span className="framework-feedback-line" data-signal-line aria-hidden="true" />
+              <span className="framework-feedback-index" aria-hidden="true">↺</span>
+              <p>Adoption, use, and changing context feed back into new Signals.</p>
+            </div>
           </div>
         </section>
 
