@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -34,3 +35,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+=======
+# Dependencies
+/node_modules
+
+# Next.js build output
+/.next/
+/out/
+
+# Local environment variables
+.env*.local
+
+# Playwright test results and browser cache
+.playwright-cli/
+/playwright-report/
+/test-results/
+/output
+>>>>>>> 5cab051 (first version)
