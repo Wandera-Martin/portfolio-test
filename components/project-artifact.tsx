@@ -21,7 +21,6 @@ export function ProjectArtifact({ project, compact = false }: ProjectArtifactPro
           src={project.coverImage.src}
           alt={project.coverImage.alt}
           fill
-          priority={!compact}
           sizes={compact
             ? "(max-width: 820px) calc(100vw - 2.5rem), 18rem"
             : "(max-width: 820px) calc(100vw - 2.5rem), 1280px"}
