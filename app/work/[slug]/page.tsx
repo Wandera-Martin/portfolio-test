@@ -52,7 +52,44 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           <ProjectArtifact project={project} />
         </section>
 
-        <section className="case-reading section-shell section-space">
+        {project.caseStudy ? (
+          <section className="case-evidence section-shell section-space" aria-labelledby="evidence-sequence-title">
+            <div className="case-evidence-head" data-reveal>
+              <div className="section-marker"><span>Evidence</span><span>Progressive case study</span></div>
+              <h2 id="evidence-sequence-title">What is documented now—and what remains to be added.</h2>
+              <p>{project.caseStudy.scopeNote}</p>
+            </div>
+
+            <div className="case-evidence-list">
+              {project.caseStudy.sections.map((section, index) => (
+                <article className="case-evidence-row" id={section.id} key={section.id} data-reveal>
+                  <span className="case-evidence-index">{String(index + 1).padStart(2, "0")}</span>
+                  <div className="case-evidence-title">
+                    <p>{section.label}</p>
+                    <h3>{section.title}</h3>
+                  </div>
+                  <div className="case-evidence-copy">
+                    <p>{section.body}</p>
+                    {section.items && (
+                      <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>
+                    )}
+                    {section.missing && (
+                      <div className="case-evidence-missing">
+                        <p>Still to add</p>
+                        <ul>{section.missing.map((item) => <li key={item}>{item}</li>)}</ul>
+                      </div>
+                    )}
+                  </div>
+                  <span className="case-evidence-status" data-status={section.status}>
+                    {section.status === "documented" ? "Documented" : section.status === "partial" ? "Partial" : "To add"}
+                  </span>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <>
+          <section className="case-reading section-shell section-space">
           <div className="case-aside" data-reveal><span className="micro">Context</span></div>
           <div className="case-prose" data-reveal>
             <h2>The transformation question</h2>
@@ -100,6 +137,8 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             </p>
           </div>
         </section>
+          </>
+        )}
 
         <nav className="case-next section-shell" aria-label="Case study navigation">
           <Link className="primary-link focus-ring" href="/work">Return to all work <span aria-hidden="true">→</span></Link>
