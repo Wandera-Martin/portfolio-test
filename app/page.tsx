@@ -84,7 +84,7 @@ export default function Home() {
         <section className="work-section section-shell section-space" aria-labelledby="selected-work-title">
           <div className="section-heading-row" data-reveal>
             <div className="section-marker"><span>01</span><span>Selected work</span></div>
-            <p className="section-note">Prototype scenarios demonstrate the narrative system. They are not professional claims.</p>
+            <p className="section-note">One published analysis is accompanied by two clearly marked prototype scenarios.</p>
           </div>
           <SplitHeading as="h2" className="section-title" id="selected-work-title">Work is organized by transformation problem.</SplitHeading>
           <div className="project-list">

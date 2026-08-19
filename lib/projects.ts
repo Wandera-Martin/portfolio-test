@@ -31,6 +31,18 @@ export type Project = {
       body: string;
       items?: string[];
       missing?: string[];
+      artifacts?: Array<{
+        src: string;
+        alt: string;
+        caption: string;
+        width: number;
+        height: number;
+        sourceUrl: string;
+      }>;
+      links?: Array<{
+        label: string;
+        href: string;
+      }>;
     }>;
   };
 };
@@ -45,14 +57,14 @@ export const projects: Project[] = [
     displayTitle: "What drives a footballer's market value?",
     technicalTitle: "Football Statistics and Player Value Prediction with Linear Regression",
     shortDescription:
-      "An end-to-end data science project exploring the relationship between player statistics and market values using a Linear Regression model in Python.",
+      "A coursework data science project combining three datasets into a one-player-per-row analysis and testing an interpretable Linear Regression baseline.",
     methods: ["Python", "Linear Regression"],
-    metadata: ["23,506 players"],
+    metadata: ["23,506 players", "R² 0.276"],
     question: "Can football statistics predict what a player is worth?",
     sector: "Sports Analytics & Data Science",
     transformationProblem: "Quantifying market value amidst off-pitch variables",
     context:
-      "The project analyzed data from 23,506 professional football players across three datasets covering profiles, career performance, and historical market values to build a predictive model.",
+      "The project combined profiles, career-performance records, and historical market values for 23,506 professional football players, then evaluated a beginner-level Linear Regression model on an unseen test set.",
     tensions: [
       "On-pitch statistics versus off-pitch influences (club, league strength, reputation, and transfer demand)",
       "Model training (model.fit) versus the extensive groundwork of data cleaning and preventing data leakage",
@@ -82,69 +94,111 @@ export const projects: Project[] = [
     },
     caseStudy: {
       scopeNote:
-        "This page separates what is currently documented from material that still needs to be supplied. No missing result or contribution is inferred.",
+        "Published in August 2026, this coursework project documents the full path from defining one row per player to interpreting a deliberately simple model without overstating its accuracy.",
       sections: [
         {
           id: "dataset-context",
           label: "Dataset context",
-          title: "Three datasets covering 23,506 professional players",
-          status: "documented",
+          title: "Three datasets, resolved to one row per player",
+          status: "partial",
           body:
-            "The current project record describes profile data, career-performance data, and historical market-value data used together for the analysis.",
-          missing: ["Dataset names and source links", "Date or version information", "Licensing and reuse context"],
+            "Player profiles supplied birth date, height, position, and preferred foot; performance records supplied appearances, goals, and assists; historical records supplied changing market values. After grouping and merging, the prepared dataset contained 23,506 unique players.",
+          items: [
+            "Unit of analysis: one football player",
+            "Performance rows aggregated into career totals and per-appearance rates",
+            "Target: each player's latest positive market value recorded from June 2025 onward",
+          ],
+          missing: ["Original dataset names and source links", "Licensing and reuse context"],
         },
         {
           id: "research-question",
           label: "Research question",
-          title: "Can football statistics predict what a player is worth?",
+          title: "How much can observable player data explain?",
           status: "documented",
           body:
-            "The project examines how far player statistics can explain market value while recognizing that valuation also reflects club, league, reputation, and transfer-demand factors.",
+            "The regression question asked whether age, height, position, preferred foot, appearances, goals, and assists could help explain or predict market value. The goal was to learn the complete process, not to claim a professional valuation system.",
+          items: ["Prepare messy data", "Explore patterns", "Create useful variables", "Build and evaluate one understandable model", "Interpret the result honestly"],
         },
         {
           id: "data-cleaning",
           label: "Data cleaning",
-          title: "Preparing the data before fitting the model",
-          status: "partial",
+          title: "The model depended on decisions made before fitting",
+          status: "documented",
           body:
-            "The current project notes confirm that data cleaning and leakage prevention were part of the workflow.",
-          missing: ["Join and deduplication steps", "Missing-value treatment", "Exclusions and leakage checks", "Reproducible cleaning artifact"],
+            "Performance records were grouped by player_id into career totals and rates. The 2025/26 performance season was excluded to reduce leakage, zero heights were treated as missing and filled with the median for each position, unknown preferred feet were retained as Unknown, and age was calculated at the valuation date.",
+          items: [
+            "Career appearances, goals, assists, and goal contributions",
+            "Goals and assists per appearance",
+            "Position-level median imputation for missing height",
+            "Age aligned to the recorded valuation date",
+          ],
         },
         {
           id: "exploratory-analysis",
           label: "Exploratory analysis",
-          title: "Reading the distribution before modeling it",
-          status: "partial",
+          title: "The typical player was far below the average",
+          status: "documented",
           body:
-            "Exploratory analysis and feature engineering are documented as part of the workflow, including attention to the right-skewed distribution of market values.",
-          missing: ["Exploration sequence", "Supporting charts", "Feature-level observations", "Analysis notebook"],
+            "Mean market value was approximately 1.41 million, while the median was 275,000 and the most common value was 100,000. A small number of extremely valuable players pulled the average upward, producing a strongly right-skewed distribution.",
+          artifacts: [
+            {
+              src: "/images/projects/football-market-value-distribution.png",
+              alt: "Histogram showing most player market values concentrated near the low end with a long right tail.",
+              caption: "Distribution of player market values. A small elite group creates a long right-hand tail.",
+              width: 889,
+              height: 490,
+              sourceUrl: "https://cdn-images-1.medium.com/max/889/1*iwtjOtEDOf2YAP6zuY942g.png",
+            },
+          ],
         },
         {
           id: "visualizations",
           label: "Visualizations",
-          title: "Source charts and explanatory graphics",
-          status: "pending",
+          title: "Position mattered; age showed the clearest curve",
+          status: "documented",
           body:
-            "No verified analysis visualizations have been supplied for this portfolio page yet. The current cover is an editorial image, not a research artifact.",
-          missing: ["Distribution plots", "Age and position comparisons", "Model diagnostic visuals", "Captions and source notes"],
+            "Attackers and midfielders had median values of approximately 300,000, defenders 250,000, and goalkeepers 175,000. Median value generally rose through the early twenties, peaked in the 26–28 group, and then declined.",
+          items: ["Position alone did not explain the wide variation within each group", "The non-linear age pattern motivated an age-squared feature"],
+          artifacts: [
+            {
+              src: "/images/projects/football-median-value-by-position.png",
+              alt: "Bar chart comparing median market value for attackers, midfielders, defenders, and goalkeepers.",
+              caption: "Median market value by position. Attackers and midfielders were highest; goalkeepers were lowest.",
+              width: 790,
+              height: 490,
+              sourceUrl: "https://cdn-images-1.medium.com/max/790/1*F96ruCYkQIWI8WYYRv-0Mg.png",
+            },
+            {
+              src: "/images/projects/football-median-value-by-age.png",
+              alt: "Line chart showing median market value rising to a peak at ages 26 to 28 before declining.",
+              caption: "Median market value by age group. Values peaked between ages 26–28 in the prepared dataset.",
+              width: 889,
+              height: 490,
+              sourceUrl: "https://cdn-images-1.medium.com/max/889/1*wd0Vd2n-V5qY0SKKxd3enA.png",
+            },
+          ],
         },
         {
           id: "model",
           label: "Model",
-          title: "Linear Regression in Python",
-          status: "partial",
+          title: "An interpretable baseline, trained on log market value",
+          status: "documented",
           body:
-            "The documented model is a Linear Regression model implemented in Python to explore the relationship between player statistics and market value.",
-          missing: ["Final feature set", "Train-test procedure", "Evaluation metrics", "Coefficient interpretation", "Model artifact"],
+            "The Linear Regression model used age at valuation, age squared, height, career appearances, goals, assists, position, and preferred foot. The skewed target was transformed with np.log1p(value), categorical fields were one-hot encoded, and the data was split 80/20.",
+          items: ["18,804 training players", "4,702 testing players", "Predictions evaluated on players excluded from training"],
         },
         {
           id: "findings",
           label: "Findings",
-          title: "Current observations from the analysis",
-          status: "partial",
-          body: "The project record currently identifies three observations without supplying their underlying charts or model tables.",
-          items: ["Market values were right-skewed", "Peak valuations appeared at ages 26–28", "Attackers and midfielders carried a valuation premium"],
-          missing: ["Supporting calculations", "Exact model results", "Uncertainty and error reporting"],
+          title: "Useful signal, but most variation remained unexplained",
+          status: "documented",
+          body:
+            "The model achieved R² = 0.276, explaining approximately 28% of the variation in log market value on the test set. The mean absolute error after reversing the transformation was approximately 1.24 million, while the median absolute error was about 211,000.",
+          items: [
+            "Approximately 72% of variation remained outside the model",
+            "A small number of elite players drove very large errors",
+            "Linear Regression pulled predictions toward more typical values",
+          ],
         },
         {
           id: "limitations",
@@ -152,26 +206,40 @@ export const projects: Project[] = [
           title: "Performance data cannot explain valuation alone",
           status: "documented",
           body:
-            "Club context, league strength, reputation, transfer demand, and high-value outliers limit what a simple statistical model can explain about player value.",
-          missing: ["Quantitative error analysis", "Segment-level limitations", "Data-quality limitations"],
+            "The dataset could not see many factors that shape the real transfer market. The result is a baseline for understanding available signal, not a professional pricing model.",
+          items: [
+            "Current club and league strength",
+            "Contract length and transfer demand",
+            "Recent form, injury status, and international appearances",
+            "Reputation, commercial appeal, and negotiation conditions",
+          ],
         },
         {
           id: "learning",
           label: "Learning",
-          title: "Preparation and interpretation matter as much as model fitting",
-          status: "partial",
+          title: "Machine learning started long before model.fit()",
+          status: "documented",
           body:
-            "The current project notes emphasize the hidden work of data preparation, honest interpretation of machine-learning results, and the limits of performance data.",
-          missing: ["Verified retrospective", "What would change in a second iteration"],
+            "The most valuable work involved defining the unit of analysis, aligning dates, avoiding future information, handling missing values, and deciding whether a statistic represented ability or simply more playing time. Evaluation was something to interpret rather than defend.",
+          items: ["Improve the data before adding model complexity", "Compare recent performance with career totals", "Add club, league, contract, injury, international, and transfer-activity context"],
         },
         {
           id: "artifacts",
           label: "Actual artifacts",
-          title: "Research materials to be added progressively",
-          status: "pending",
+          title: "Published analysis and project repository",
+          status: "documented",
           body:
-            "The published page currently contains an editorial cover only. Research artifacts have not yet been supplied for publication.",
-          missing: ["Code or notebook", "Source visualizations", "Model output", "Data documentation", "Download or repository links"],
+            "The complete project is published with its analysis narrative and a repository containing the Jupyter notebooks, prepared dataset, model results, documentation, and final report.",
+          links: [
+            {
+              label: "Read the full analysis on Medium",
+              href: "https://medium.com/@martinwandera/can-football-statistics-predict-a-players-market-value-df7dacda14e6",
+            },
+            {
+              label: "View the project on GitHub",
+              href: "https://github.com/Wandera-Martin/Football-Player-Market-Value",
+            },
+          ],
         },
       ],
     },

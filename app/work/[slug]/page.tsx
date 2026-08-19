@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProjectArtifact } from "@/components/project-artifact";
@@ -56,7 +57,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           <section className="case-evidence section-shell section-space" aria-labelledby="evidence-sequence-title">
             <div className="case-evidence-head" data-reveal>
               <div className="section-marker"><span>Evidence</span><span>Progressive case study</span></div>
-              <h2 id="evidence-sequence-title">What is documented now—and what remains to be added.</h2>
+              <h2 id="evidence-sequence-title">How the data was prepared, what the model found, and where it stopped.</h2>
               <p>{project.caseStudy.scopeNote}</p>
             </div>
 
@@ -72,6 +73,34 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                     <p>{section.body}</p>
                     {section.items && (
                       <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>
+                    )}
+                    {section.artifacts && (
+                      <div className="case-evidence-artifacts">
+                        {section.artifacts.map((artifact) => (
+                          <figure className="case-evidence-figure" key={artifact.src}>
+                            <Image
+                              src={artifact.src}
+                              alt={artifact.alt}
+                              width={artifact.width}
+                              height={artifact.height}
+                              sizes="(max-width: 820px) calc(100vw - 2.5rem), 540px"
+                            />
+                            <figcaption>{artifact.caption}</figcaption>
+                            <a className="case-artifact-source focus-ring" href={artifact.sourceUrl} target="_blank" rel="noreferrer">
+                              Published figure source <span aria-hidden="true">↗</span>
+                            </a>
+                          </figure>
+                        ))}
+                      </div>
+                    )}
+                    {section.links && (
+                      <div className="case-evidence-links">
+                        {section.links.map((link) => (
+                          <a className="focus-ring" href={link.href} key={link.href} target="_blank" rel="noreferrer">
+                            {link.label} <span aria-hidden="true">↗</span>
+                          </a>
+                        ))}
+                      </div>
                     )}
                     {section.missing && (
                       <div className="case-evidence-missing">

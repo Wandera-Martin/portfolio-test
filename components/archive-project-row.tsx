@@ -5,8 +5,10 @@ import type { Project } from "@/lib/projects";
 export function ArchiveProjectRow({ project }: { project: Project }) {
   const evidence = project.isPlaceholder
     ? "Development artifact only"
-    : project.coverImage
-      ? "Cover image · case narrative"
+    : project.caseStudy
+      ? "Published analysis · charts · repository"
+      : project.coverImage
+        ? "Cover image · case narrative"
       : "Case narrative";
 
   return (
